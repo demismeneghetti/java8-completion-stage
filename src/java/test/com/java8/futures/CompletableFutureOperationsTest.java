@@ -24,7 +24,7 @@ public class CompletableFutureOperationsTest {
 	public void shouldRunForever() throws Exception {
 		CompletableFutureOperations operations = new CompletableFutureOperations();
 		
-		//operations.ask().get();
+		//operations.ask().get(); It's comment because the get method will stop the client forever
 	}
 
 	@Test
@@ -34,6 +34,24 @@ public class CompletableFutureOperationsTest {
 		String someValue = operations.askReturningSomething().get();
 		
 		assertThat(someValue, is(equalTo("Some string value")));
+	}
+	
+	@Test
+	public void shouldReturnAValueFromCompletableFutureWithDelay() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingWithDelay().get(); //Stops the Thread, waiting for response
+		
+		assertThat(someValue, is(equalTo("Some string value")));
+	}
+	
+	@Test
+	public void shouldReturnADifferentValueFromPreviousOneWhenUsingCompletableFuture() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingWithAnotherCompletedValue().get();
+		
+		assertThat(someValue, is(equalTo("Another Value")));
 	}
 	
 }
