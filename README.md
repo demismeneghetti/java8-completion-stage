@@ -17,3 +17,5 @@ public CompletableFuture<String> ask() {
 ```
 
 Notice that if you call the **ask()** method, it will block your client forever, since we are not using a Callable object in somewhere.
+
+Sometimes you want to signal failure. As you know Future objects can handle either wrapped result or exception
