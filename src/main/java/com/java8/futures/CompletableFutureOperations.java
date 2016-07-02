@@ -3,6 +3,8 @@ package com.java8.futures;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -86,6 +88,21 @@ public class CompletableFutureOperations {
 
 	public CompletableFuture<String> askReturningSomethingUsingSupplierUsingLambdaAndMethod() {
 		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> runLongTask());
+		
+		return future;
+	}
+	
+	/*
+	 * Notice that we are using a custom Executor, passing it on supplyAsync method
+	 */
+	public CompletableFuture<String> askReturningSomethingUsingSupplierAndExecutor() {
+		final ExecutorService executor = Executors.newFixedThreadPool(1);
+		
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+			return "Some value";
+		}, executor);
+		
+		executor.shutdown();
 		
 		return future;
 	}
