@@ -3,6 +3,8 @@ package com.java8.futures;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class CompletableFutureOperations {
 
@@ -52,5 +54,28 @@ public class CompletableFutureOperations {
 		
 		return future;
 	}
+
+	public CompletableFuture<String> askReturningSomethingUsingSupplier() {
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(new Supplier<String>() {
+
+			@Override
+			public String get() {
+				try {
+					System.out.println("Executing something really really hard!");
+					TimeUnit.SECONDS.sleep(5);
+					System.out.println("Finished execution!");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return "Some value";
+			}
+		});
+
+		System.out.println("Finished asking!");
+		
+		return future;
+	}
+	
+	
 	
 }
