@@ -1,4 +1,4 @@
-package com.java8.futures;
+package com.java8.futures.basic;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -89,21 +89,4 @@ public class CompletableFutureOperationsTest {
 		assertThat(someValue, is(equalTo("Some value")));
 	}
 	
-	@Test
-	public void shouldReturnAValueFromSupplyAsyncCallUsingThenApplyMethod() throws Exception {
-		CompletableFutureOperations operations = new CompletableFutureOperations();
-		
-		String value = operations.returningWithThenApply();
-		
-		assertThat(value, is(equalTo("some value")));
-	}
-	
-	@Test
-	public void shouldReturnAValueFromSupplyAsyncCallUsingThenApplyMethodOnLongTask() throws Exception {
-		CompletableFutureOperations operations = new CompletableFutureOperations();
-		
-		String value = operations.returnValueFromLongTaskUsingThenApplyMethod();
-		
-		assertThat(value, is(equalTo("some value")));
-	}
 }
