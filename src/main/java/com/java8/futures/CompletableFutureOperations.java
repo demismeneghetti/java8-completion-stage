@@ -3,6 +3,10 @@ package com.java8.futures;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class CompletableFutureOperations {
 
@@ -51,6 +55,61 @@ public class CompletableFutureOperations {
 		future.obtrudeValue("Another Value");
 		
 		return future;
+	}
+
+	public CompletableFuture<String> askReturningSomethingUsingSupplier() {
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(new Supplier<String>() {
+
+			@Override
+			public String get() {
+				try {
+					System.out.println("Executing something really really hard!");
+					TimeUnit.SECONDS.sleep(5);
+					System.out.println("Finished execution!");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return "Some value";
+			}
+		});
+
+		System.out.println("Finished asking!");
+		
+		return future;
+	}
+
+	public CompletableFuture<String> askReturningSomethingUsingSupplierUsingLambda() {
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+			System.out.println("Long running task");
+			return "Some value";
+		});
+		return future;
+	}
+
+	public CompletableFuture<String> askReturningSomethingUsingSupplierUsingLambdaAndMethod() {
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> runLongTask());
+		
+		return future;
+	}
+	
+	/*
+	 * Notice that we are using a custom Executor, passing it on supplyAsync method
+	 */
+	public CompletableFuture<String> askReturningSomethingUsingSupplierAndExecutor() {
+		final ExecutorService executor = Executors.newFixedThreadPool(1);
+		
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+			return "Some value";
+		}, executor);
+		
+		executor.shutdown();
+		
+		return future;
+	}
+
+	private String runLongTask() {
+		System.out.println("Executing long tasks");
+		return "Some value";
 	}
 	
 }

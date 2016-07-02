@@ -54,4 +54,38 @@ public class CompletableFutureOperationsTest {
 		assertThat(someValue, is(equalTo("Another Value")));
 	}
 	
+	@Test
+	public void shouldReturnACompletableFutureUsingSupplierObject() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingUsingSupplier().get(); //Stops the client and waits the returned value
+		
+		assertThat(someValue, is(equalTo("Some value")));
+	}
+	
+	@Test
+	public void shouldReturnACompletableFutureUsingSupplierObjectUsingLambda() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingUsingSupplierUsingLambda().get(); //Stops the client and waits the returned value
+		
+		assertThat(someValue, is(equalTo("Some value")));
+	}
+	
+	@Test
+	public void shouldReturnACompletableFutureUsingSupplierObjectUsingLambdaAndMethod() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingUsingSupplierUsingLambdaAndMethod().get(); //Stops the client and waits the returned value
+		
+		assertThat(someValue, is(equalTo("Some value")));
+	}
+
+	@Test
+	public void shouldReturnACompletableFutureUsingSupplierAndExecutor() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingUsingSupplierAndExecutor().get();
+		assertThat(someValue, is(equalTo("Some value")));
+	}
 }
