@@ -88,4 +88,22 @@ public class CompletableFutureOperationsTest {
 		String someValue = operations.askReturningSomethingUsingSupplierAndExecutor().get();
 		assertThat(someValue, is(equalTo("Some value")));
 	}
+	
+	@Test
+	public void shouldReturnAValueFromSupplyAsyncCallUsingThenApplyMethod() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String value = operations.returningWithThenApply();
+		
+		assertThat(value, is(equalTo("some value")));
+	}
+	
+	@Test
+	public void shouldReturnAValueFromSupplyAsyncCallUsingThenApplyMethodOnLongTask() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String value = operations.returnValueFromLongTaskUsingThenApplyMethod();
+		
+		assertThat(value, is(equalTo("some value")));
+	}
 }
