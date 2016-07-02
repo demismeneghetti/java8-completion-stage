@@ -63,4 +63,13 @@ public class CompletableFutureOperationsTest {
 		assertThat(someValue, is(equalTo("Some value")));
 	}
 	
+	@Test
+	public void shouldReturnACompletableFutureUsingSupplierObjectUsingLambda() throws Exception {
+		CompletableFutureOperations operations = new CompletableFutureOperations();
+		
+		String someValue = operations.askReturningSomethingUsingSupplierUsingLambda().get(); //Stops the client and waits the returned value
+		
+		assertThat(someValue, is(equalTo("Some value")));
+	}
+	
 }

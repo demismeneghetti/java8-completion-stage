@@ -75,7 +75,14 @@ public class CompletableFutureOperations {
 		
 		return future;
 	}
-	
-	
+
+	public CompletableFuture<String> askReturningSomethingUsingSupplierUsingLambda() {
+		CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+			System.out.println("Long running task");
+			return "Some value";
+		});
+		
+		return future;
+	}
 	
 }
