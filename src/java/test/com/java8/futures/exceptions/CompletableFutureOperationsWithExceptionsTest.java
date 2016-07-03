@@ -9,12 +9,30 @@ import org.junit.Test;
 public class CompletableFutureOperationsWithExceptionsTest {
 
 	@Test
-	public void testName() throws Exception {
+	public void shouldReturnAMessageCreatedByMethodAfterAnExceptionBeThrows() throws Exception {
 		CompletableFutureOperationsWithExceptions operations = new CompletableFutureOperationsWithExceptions();
 		
 		String value = operations.doAOperationThrowingAnException();
 		
 		assertThat(value, is(equalTo("Throws an exception")));
+	}
+	
+	@Test
+	public void shoudlDealWithExceptionsUsingHandleWay() throws Exception {
+		CompletableFutureOperationsWithExceptions operations = new CompletableFutureOperationsWithExceptions();
+		
+		String value = operations.doOperationDealingWithExceptionsInABetterWay();
+		
+		assertThat(value, is(equalTo("Another value")));
+	}
+
+	@Test
+	public void shoudlReturnAValueThatWasSentByAThrowableOperation() throws Exception {
+		CompletableFutureOperationsWithExceptions operations = new CompletableFutureOperationsWithExceptions();
+		
+		String value = operations.doAOperationReturningAMessageException();
+		
+		assertThat(value, is(equalTo("Some problems")));
 	}
 	
 }
